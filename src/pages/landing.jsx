@@ -49,7 +49,7 @@ export default function landing() {
                 </div>
             </main>
 
-
+            <footer />
         </>
 
     );
