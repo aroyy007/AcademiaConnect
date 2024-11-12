@@ -4,21 +4,26 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PropTypes from 'prop-types';
 
-function Feature({ icon, title, description } ) {
+function Feature({ icon, title, description }) {
     return (
-        <div className="flex flex-col items-center space-y-3">
-            <div className="p-4 bg-primary-50 rounded-full">
-                {icon}
+        <div className="pt-6">
+            <div className="flow-root bg-white rounded-lg px-6 pb-8">
+                <div className="-mt-6">
+                    <div className="inline-flex items-center justify-center p-3 bg-primary-500 rounded-md shadow-lg">
+                        {icon}
+                    </div>
+                    <h3 className="mt-8 text-lg font-medium text-gray-900 tracking-tight">{title}</h3>
+                    <p className="mt-5 text-base text-gray-500">{description}</p>
+                </div>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-            <p className="text-base text-gray-500 text-center">{description}</p>
         </div>
     );
 }
 
+
 function Landing() {
     return (
-        <>
+        <div className="min-h-screen bg-gradient-to-b from-[#c7d7f0d7] to-white">
             <Navbar />
 
             <main>
@@ -48,7 +53,7 @@ function Landing() {
                             <Feature
                                 icon={<Calendar className="h-6 w-6" />}
                                 title="Class Routines"
-                                description="Access your class schedules and important academic dates in one convenient location."
+                                description="Access your class schedules, important academic dates, and other essential information all in one convenient location."
                             />
                             <Feature
                                 icon={<Bell className="h-6 w-6" />}
@@ -61,8 +66,7 @@ function Landing() {
             </main>
 
             <Footer />
-        </>
-        
+        </div>
     );
 }
 Feature.propTypes = {
