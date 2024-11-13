@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 function Feature({ icon, title, description }) {
     return (
         <div className="pt-6">
-            <div className="flow-root bg-white rounded-lg px-6 pb-8">
+            <div className="flow-root bg-white rounded-lg px-6 pb-8 hover:border hover:shadow-lg hover:shadow-blue-500/50">
                 <div className="-mt-6">
                     <div className="inline-flex items-center justify-center p-3 bg-primary-500 rounded-md shadow-lg">
                         {icon}
