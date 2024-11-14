@@ -38,7 +38,11 @@ function Landing() {
                         </p>
                         <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
                             <Link to="/">
-                                <button size="lg">Get Started</button>
+                                <button className="relative group px-6 py-3 text-[#111827] uppercase text-lg font-medium transition duration-500 ease-linear bg-transparent overflow-hidden rounded-[10px]">
+                                    <span className="absolute inset-0 w-0 h-[2px] bg-[#111827] bottom-0 left-0 transition-all duration-500 ease-linear group-hover:w-full"></span>
+                                    <span className="absolute inset-0 w-full h-full bg-[#111827] transition-all duration-400 ease-linear scale-y-0 origin-bottom group-hover:scale-y-100"></span>
+                                    <span className="relative z-10 transition duration-500 ease-linear group-hover:text-white">Get Started</span>
+                                </button>
                             </Link>
                         </div>
                     </div>
