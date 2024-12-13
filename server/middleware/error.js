@@ -1,4 +1,4 @@
-import { logger } from '../config/db';
+import { logger } from '../config/db.js';
 
 export class AppError extends Error {
   constructor(message, statusCode) {

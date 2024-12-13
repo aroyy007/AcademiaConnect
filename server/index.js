@@ -8,12 +8,12 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import config from './config/config.js';
 import database from './config/database.js';
-import { logger } from './config/logger';
-import { errorHandler } from './middleware/error';
+import { logger } from './config/logger.js';
+import { errorHandler } from './middleware/error.js';
 
 // Route imports
-import authRoutes from './routes/auth';
-import postsRoutes from './routes/posts';
+import authRoutes from './routes/auth.js';
+import postsRoutes from './routes/posts.js';
 
 const app = express();
 const httpServer = createServer(app);

@@ -1,6 +1,6 @@
-const { AppError } = require('../middleware/error');
-const { logger } = require('../config/db');
-const { Post } = require('../models/Post');
+const { AppError } = require('../middleware/error.js');
+const { logger } = require('../config/db.js');
+const { Post } = require('../models/Post.js');
 
 const postsController = {
   // Create a new post

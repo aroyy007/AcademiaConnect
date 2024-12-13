@@ -1,6 +1,6 @@
-const { User } = require('../models/User');
-const { AppError } = require('../middleware/error');
-const { logger } = require('../config/logger');
+const { User } = require('../models/User.js');
+const { AppError } = require('../middleware/error.js');
+const { logger } = require('../config/logger.js');
 
 exports.authController = {
   async register(req, res, next) {
