@@ -1,8 +1,8 @@
-const jwt = require('jsonwebtoken');
-const { User } = require('../models/User.js');
-const { AppError } = require('./error.js');
+import jwt from 'jsonwebtoken';
+import { User } from '../models/User.js';
+import { AppError } from './error.js';
 
-const protect = async (req, res, next) => {
+export const protect = async (req, res, next) => {
   try {
     let token;
     if (req.headers.authorization?.startsWith('Bearer')) {
@@ -25,7 +25,7 @@ const protect = async (req, res, next) => {
   }
 };
 
-const authorize = (...roles) => {
+export const authorize = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
       throw new AppError(`User role ${req.user.role} is not authorized to access this route`, 403);
@@ -33,5 +33,3 @@ const authorize = (...roles) => {
     next();
   };
 };
-
-module.exports = { protect, authorize };

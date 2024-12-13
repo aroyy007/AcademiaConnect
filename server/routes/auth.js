@@ -1,7 +1,8 @@
+// routes/auth.js
 import express from 'express';
 import { body } from 'express-validator';
-import { authController } from '../controllers/auth';
-import { validate } from '../middleware/validate';
+import { authController } from '../controllers/auth.js'; // Import using ES Module syntax
+import { validate } from '../middleware/validate.js';
 
 const router = express.Router();
 
@@ -28,4 +29,4 @@ const registerValidation = [
 router.post('/register', validate(registerValidation), authController.register);
 router.post('/login', authController.login);
 
-export default router;
+export default router; // Export using ES Module syntax

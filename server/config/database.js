@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import config from './config.js';
 import { logger } from './logger.js';
 
+
 const database = async () => {
   try {
     const conn = await mongoose.connect(config.mongoUri, {

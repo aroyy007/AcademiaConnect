@@ -1,8 +1,9 @@
-const { User } = require('../models/User.js');
-const { AppError } = require('../middleware/error.js');
-const { logger } = require('../config/logger.js');
+// controllers/auth.js
+import { User } from '../models/User.js';
+import { AppError } from '../middleware/error.js';
+import { logger } from '../config/logger.js';
 
-exports.authController = {
+export const authController = {
   async register(req, res, next) {
     try {
       const user = await User.create(req.body);

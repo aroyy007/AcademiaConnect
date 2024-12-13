@@ -1,8 +1,9 @@
-const { AppError } = require('../middleware/error.js');
-const { logger } = require('../config/db.js');
-const { Post } = require('../models/Post.js');
+// controllers/posts.js
+import { AppError } from '../middleware/error.js';
+import { logger } from '../config/logger.js';
+import { Post } from '../models/Post.js';
 
-const postsController = {
+export const postsController = {
   // Create a new post
   async create(req, res) {
     try {
@@ -144,5 +145,3 @@ const postsController = {
     }
   }
 };
-
-module.exports = { postsController };

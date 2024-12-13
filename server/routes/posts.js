@@ -1,8 +1,9 @@
+// routes/posts.js
 import express from 'express';
 import { body } from 'express-validator';
-import { postsController } from '../controllers/posts';
-import { protect } from '../middleware/auth';
-import { validate } from '../middleware/validate';
+import { postsController } from '../controllers/posts.js'; // Ensure this is correct
+import { protect } from '../middleware/auth.js'; // Correct ES Module import
+import { validate } from '../middleware/validate.js'; // Correct ES Module import
 
 const router = express.Router();
 
@@ -51,4 +52,4 @@ router.delete('/:id', postsController.delete);
 router.post('/:id/like', postsController.toggleLike);
 router.post('/:id/comments', validate(commentValidation), postsController.addComment);
 
-export default router;
+export default router;  // Keep ES Module export

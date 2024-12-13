@@ -1,7 +1,8 @@
-const { validationResult } = require('express-validator');
-const { AppError } = require('./error.js');
+// middleware/validate.js
+import { validationResult } from 'express-validator';
+import { AppError } from './error.js';
 
-const validate = (validations) => {
+export const validate = (validations) => {
   return async (req, res, next) => {
     await Promise.all(validations.map(validation => validation.run(req)));
 
@@ -16,5 +17,3 @@ const validate = (validations) => {
     throw new AppError(extractedErrors.join('. '), 400);
   };
 };
-
-module.exports = { validate };

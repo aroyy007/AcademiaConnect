@@ -1,12 +1,12 @@
-const dotenv = require('dotenv');
-const path = require('path');
+import dotenv from 'dotenv';
+import path from 'path';
 
 // Load env vars based on NODE_ENV
 dotenv.config({
-  path: path.join(__dirname, `../../.env.${process.env.NODE_ENV || 'development'}`)
+  path: path.join(process.cwd(), `.env.${process.env.NODE_ENV || 'development'}`)
 });
 
-module.exports = {
+const config = {
   env: process.env.NODE_ENV || 'development',
   port: parseInt(process.env.PORT || '3000', 10),
   mongoUri: process.env.MONGODB_URI,
@@ -16,3 +16,5 @@ module.exports = {
   rateLimitWindow: 15 * 60 * 1000, // 15 minutes
   rateLimitMax: 100 // 100 requests per window
 };
+
+export default config;

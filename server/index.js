@@ -52,8 +52,8 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 // Routes
-app.use('/routes/auth', authRoutes);
-app.use('/routes/posts', postsRoutes);
+app.use('/routes/auth.js', authRoutes);
+app.use('/routes/posts.js', postsRoutes);
 
 // Socket.io events
 io.on('connection', (socket) => {
