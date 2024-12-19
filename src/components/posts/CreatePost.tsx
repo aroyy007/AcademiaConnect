@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useAuthStore } from '../../store/auth';
 import { usePostsStore } from '../../store/posts';
 import { Image, Send } from 'lucide-react';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 export function CreatePost() {
   const [content, setContent] = useState('');
@@ -9,13 +11,36 @@ export function CreatePost() {
   const user = useAuthStore((state) => state.user);
   const addPost = usePostsStore((state) => state.addPost);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   if (!content.trim() || !user) return;
+
+  //   const newPost = {
+  //     id: crypto.randomUUID(),
+  //     userId: user?._id,
+  //     user: user,
+  //     content,
+  //     images,
+  //     likes: [],
+  //     comments: [],
+  //     createdAt: new Date(),
+  //   };
+
+  //   // addPost(newPost);
+    
+
+  //   setContent('');
+  //   setImages([]);
+  // };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!content.trim() || !user) return;
 
     const newPost = {
       id: crypto.randomUUID(),
-      userId: user.id,
+      userId: user?._id,
+      user: user,
       content,
       images,
       likes: [],
@@ -23,9 +48,25 @@ export function CreatePost() {
       createdAt: new Date(),
     };
 
-    addPost(newPost);
+    try {
+      const res = await axios.post("http://localhost:9000/api/posts", newPost);
+      const res_data = res?.data;
+      console.log(res_data);
+
+      if (res_data?.success) {
+        addPost(res_data?.data);
+        toast.success('Post created successfully!');
+      } else {
+        toast.error('Failed to create post');
+      }
+    } catch (error) {
+      console.error('Post creation failed:', error);
+      toast.error('Post creation failed. Please try again.');
+    }
+
     setContent('');
     setImages([]);
+    return; // Ensure a clean exit
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +87,7 @@ export function CreatePost() {
         className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         rows={3}
       />
-      
+
       {images.length > 0 && (
         <div className="mt-2 flex gap-2 flex-wrap">
           {images.map((url, index) => (
@@ -59,7 +100,7 @@ export function CreatePost() {
           ))}
         </div>
       )}
-      
+
       <div className="mt-4 flex justify-between items-center">
         <label className="cursor-pointer text-gray-600 hover:text-blue-600">
           <Image className="h-5 w-5" />
@@ -70,7 +111,7 @@ export function CreatePost() {
             onChange={handleImageUpload}
           />
         </label>
-        
+
         <button
           type="submit"
           disabled={!content.trim()}

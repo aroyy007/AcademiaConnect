@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 const signupSchema = z.object({
   email: z.string().email().endsWith('@eastdelta.edu.bd', 'Must be an EDU email'),
@@ -17,7 +19,7 @@ type SignupForm = z.infer<typeof signupSchema>;
 
 export function SignupPage() {
   const navigate = useNavigate();
-  
+
   const {
     register,
     handleSubmit,
@@ -31,8 +33,20 @@ export function SignupPage() {
       // Simulated signup - replace with actual API call
       console.log('Signup data:', data);
       // Show success message
-      alert('Registration successful! Please wait for admin approval.');
-      navigate('/login');
+      // alert('Registration successful! Please wait for admin approval.');
+      // navigate('/login');
+
+      const res = await axios.post("http://localhost:9000/api/auth/register", {
+        ...data
+      })
+      const res_data = res?.data;
+      console.log("data : ", res_data)
+
+      if (res_data?.success) {
+        navigate('/login');
+      } else {
+        toast.error('Sign up failed. Try again');
+      }
     } catch (error) {
       console.error('Signup failed:', error);
     }

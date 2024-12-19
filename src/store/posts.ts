@@ -54,6 +54,8 @@ export const usePostsStore = create<PostsState>((set) => ({
       },
       ...state.posts
     ] 
+
+
   })),
 
   updatePost: (postId, updates) =>

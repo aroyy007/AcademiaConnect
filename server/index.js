@@ -54,6 +54,7 @@ app.use('/api', limiter);
 // Routes
 app.use('/routes/auth.js', authRoutes);
 app.use('/routes/posts.js', postsRoutes);
+app.use("/routes/auth", authRoutes)
 
 // Socket.io events
 io.on('connection', (socket) => {
@@ -81,6 +82,7 @@ app.use(errorHandler);
 
 const PORT = config.port;
 httpServer.listen(PORT, () => {
+  console.log("running on port 9000")
   logger.info(`Server running in ${config.env} mode on port ${PORT}`);
 });
 

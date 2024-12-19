@@ -4,13 +4,19 @@ import type { User } from '../types';
 interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
-  login: (user: User) => void;
+  token: String,
+  login: (user: User, token: String) => void;
   logout: () => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isAuthenticated: false,
-  login: (user) => set({ user, isAuthenticated: true }),
+  token: "",
+  login: (user, token) => {
+    set({ user, isAuthenticated: true, token })
+    window.localStorage.setItem("user", JSON.stringify(user));
+    window.localStorage.setItem("token", JSON.stringify(token));
+  },
   logout: () => set({ user: null, isAuthenticated: false }),
 }));

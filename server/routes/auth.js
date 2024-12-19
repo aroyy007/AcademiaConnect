@@ -29,4 +29,5 @@ const registerValidation = [
 router.post('/register', validate(registerValidation), authController.register);
 router.post('/login', authController.login);
 
+
 export default router; // Export using ES Module syntax

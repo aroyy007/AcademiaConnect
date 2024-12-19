@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/auth';
 import { demoCredentials } from '../lib/demoCredentials';
 import { toast } from 'react-hot-toast';
+import axios from 'axios';
 
 const loginSchema = z.object({
   email: z.string().email().endsWith('@eastdelta.edu.bd', 'Must be an EDU email'),
@@ -18,7 +19,7 @@ type LoginForm = z.infer<typeof loginSchema>;
 export function LoginPage() {
   const navigate = useNavigate();
   const login = useAuthStore((state) => state.login);
-  
+
   const {
     register,
     handleSubmit,
@@ -59,21 +60,37 @@ export function LoginPage() {
         user = demoCredentials.students.find(
           (student) => student.email === data.email && student.password === data.password
         );
+
+
+        const res = await axios.post("http://localhost:9000/api/auth/login", { ...data })
+        const res_data = res?.data;
+        console.log(res_data)
+
+        if (res_data?.success) {
+          login(res_data?.data, res_data?.token)
+          toast.success('Login successful!');
+          navigate(data.isAdmin ? '/admin' : '/home');
+        } else {
+          toast.error('Invalid credentials');
+          return;
+        }
       }
 
-      if (!user) {
-        toast.error('Invalid credentials');
-        return;
-      }
+      // if (!user) {
+      //   toast.error('Invalid credentials');
+      //   return;
+      // }
 
-      login(user);
-      toast.success('Login successful!');
-      navigate(data.isAdmin ? '/admin' : '/home');
+      // login(user);
+      // toast.success('Login successful!');
+      // navigate(data.isAdmin ? '/admin' : '/home');
     } catch (error) {
       console.error('Login failed:', error);
       toast.error('Login failed. Please try again.');
+      return;
     }
   };
+
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
