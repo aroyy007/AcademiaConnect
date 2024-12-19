@@ -5,7 +5,7 @@ import type { User as UserType } from '../../types/post';
 
 interface PostHeaderProps {
   user: UserType;
-  timestamp: string;
+  timestamp: Date;
   onMenuOpen: () => void;
 }
 

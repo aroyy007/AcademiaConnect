@@ -2,7 +2,8 @@ import express from "express"
 import dotenv from "dotenv"
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth.js"
-// import postsRoutes from "./routes/posts.js"
+import postsRoutes from "./routes/posts.js"
+import userRoutes from "./routes/user.js"
 import { Server } from 'socket.io';
 import { createServer } from 'http';
 import cors from "cors"
@@ -27,7 +28,8 @@ app.use(cors({
 }));
 
 app.use("/api/auth", authRoutes);
-// app.use('/api/posts', postsRoutes);
+app.use('/api/posts', postsRoutes);
+app.use('/api/users', userRoutes);
 
 let PORT = process.env.PORT || 8000;
 

@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import type { User } from '../types';
+import axios from 'axios';
 
 interface FriendsState {
   friends: User[];
@@ -29,36 +30,28 @@ export const useFriendsStore = create<FriendsState>((set, get) => ({
     set({ isLoading: true });
     try {
       // Simulated API call - replace with actual API integration
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      const results: User[] = [
-        {
-          id: '1',
-          name: 'John Doe',
-          email: 'john@eastdelta.edu.bd',
-          department: 'Computer Science',
-          semester: 6,
-          section: 'A',
-          role: 'student',
-          status: 'approved',
-          createdAt: new Date(),
-          friendshipStatus: 'none',
-        },
-        {
-          id: '2',
-          name: 'Jane Smith',
-          email: 'jane@eastdelta.edu.bd',
-          department: 'Business Administration',
-          semester: 4,
-          section: 'B',
-          role: 'student',
-          status: 'approved',
-          createdAt: new Date(),
-          friendshipStatus: 'pending',
-        },
-      ].filter((user) =>
-        user.name.toLowerCase().includes(query.toLowerCase())
-      );
-      set({ searchResults: results });
+      // await new Promise((resolve) => setTimeout(resolve, 500));
+      // const results: User[] = [
+      //   {
+      //     _id: '1',
+      //     name: 'John Doe',
+      //     email: 'john@eastdelta.edu.bd',
+      //     department: 'Computer Science',
+      //     semester: 6,
+      //     section: 'A',
+      //     role: 'student',
+      //     status: 'approved',
+      //     createdAt: new Date(),
+      //     friendshipStatus: 'none',
+      //   },
+      // ].filter((user) =>
+      //   user.name.toLowerCase().includes(query.toLowerCase())
+      // );
+
+      const response = await axios.get(`http://localhost:9000/api/users/search-user/${query}`);
+      const data = response?.data;
+
+      set({ searchResults: data?.users });
     } catch (error) {
       console.error('Failed to search users:', error);
       set({ searchResults: [] });
@@ -74,7 +67,7 @@ export const useFriendsStore = create<FriendsState>((set, get) => ({
       const { searchResults } = get();
       set({
         searchResults: searchResults.map((user) =>
-          user.id === userId
+          user._id === userId
             ? { ...user, friendshipStatus: 'pending' }
             : user
         ),

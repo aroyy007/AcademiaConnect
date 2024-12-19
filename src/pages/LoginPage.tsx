@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/auth';
 import { demoCredentials } from '../lib/demoCredentials';
 import { toast } from 'react-hot-toast';
@@ -52,9 +52,13 @@ export function LoginPage() {
   const onSubmit = async (data: LoginForm) => {
     try {
       let user;
+      console.log("admin : ", data)
       if (data.isAdmin) {
         if (data.email === demoCredentials.admin.email && data.password === demoCredentials.admin.password) {
           user = demoCredentials.admin;
+          login(user, demoCredentials.admin.token)
+          toast.success('Login successful!');
+          navigate(data.isAdmin ? '/admin' : '/home');
         }
       } else {
         user = demoCredentials.students.find(
@@ -156,6 +160,10 @@ export function LoginPage() {
               </button>
             </div>
           </form>
+
+          <div className='w-full flex items-center justify-center mt-4 text-sm'>
+                <Link to={"/signup"}>Don&apos;t have an account? Sign up now</Link>
+          </div>
 
           <div className="mt-6">
             <div className="relative">

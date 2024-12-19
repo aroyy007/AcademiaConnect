@@ -23,10 +23,11 @@ export const useAdminStore = create<AdminState>((set) => ({
   notifications: [],
   posts: [],
   setPendingUsers: (users) => set({ pendingUsers: users }),
-  approveUser: (userId) =>
+  approveUser: (userId) => {
     set((state) => ({
-      pendingUsers: state.pendingUsers.filter((user) => user.id !== userId),
-    })),
+      pendingUsers: state.pendingUsers.filter((user) => user._id !== userId),
+    }))
+  },
   rejectUser: (userId) =>
     set((state) => ({
       pendingUsers: state.pendingUsers.filter((user) => user.id !== userId),

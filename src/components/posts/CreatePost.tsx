@@ -9,6 +9,7 @@ export function CreatePost() {
   const [content, setContent] = useState('');
   const [images, setImages] = useState<string[]>([]);
   const user = useAuthStore((state) => state.user);
+  const token = useAuthStore((state) => state.token);
   const addPost = usePostsStore((state) => state.addPost);
 
   // const handleSubmit = (e: React.FormEvent) => {
@@ -27,7 +28,7 @@ export function CreatePost() {
   //   };
 
   //   // addPost(newPost);
-    
+
 
   //   setContent('');
   //   setImages([]);
@@ -37,23 +38,28 @@ export function CreatePost() {
     e.preventDefault();
     if (!content.trim() || !user) return;
 
-    const newPost = {
-      id: crypto.randomUUID(),
-      userId: user?._id,
-      user: user,
-      content,
-      images,
-      likes: [],
-      comments: [],
-      createdAt: new Date(),
-    };
+    // const newPost = {
+    //   userId: user?._id,
+    //   content,
+    //   images,
+    //   likes: [],
+    //   comments: [],
+    //   createdAt: new Date(),
+    // };
 
     try {
-      const res = await axios.post("http://localhost:9000/api/posts", newPost);
+      const res = await axios.post("http://localhost:9000/api/posts", {
+        content, images
+      },{
+        headers : {
+          Authorization : `Bearer ${token}`
+        }
+      });
       const res_data = res?.data;
-      console.log(res_data);
 
+      console.log(res_data);
       if (res_data?.success) {
+  
         addPost(res_data?.data);
         toast.success('Post created successfully!');
       } else {

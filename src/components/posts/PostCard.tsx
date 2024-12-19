@@ -34,9 +34,10 @@ export function PostCard({ post, onLike, onComment, onShare }: PostCardProps) {
   return (
     <article className="bg-white rounded-lg shadow-sm overflow-hidden">
       <PostHeader
-        user={post.user}
-        timestamp={post.createdAt.toISOString()}
-        onMenuOpen={() => {}}
+        user={post.userId}
+        // createdAt={post?.createdAt}
+        timestamp={post?.createdAt}
+      onMenuOpen={() => { }}
       />
       <PostContent content={post.content} />
       <PostMetrics

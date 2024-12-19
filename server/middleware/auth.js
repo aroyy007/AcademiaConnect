@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User.js';
-import { AppError } from './error.js';
 
 export const protect = async (req, res, next) => {
   try {
@@ -10,7 +9,10 @@ export const protect = async (req, res, next) => {
     }
 
     if (!token) {
-      throw new AppError('Not authorized to access this route', 401);
+      // throw new AppError('Not authorized to access this route', 401);
+      return res.status(401).json({
+        success: false
+      })
     }
 
     try {
@@ -18,7 +20,9 @@ export const protect = async (req, res, next) => {
       req.user = await User.findById(decoded.id).select('-password');
       next();
     } catch (error) {
-      throw new AppError('Not authorized to access this route', 401);
+      return res.status(401).json({
+        success: false
+      })
     }
   } catch (error) {
     next(error);
@@ -28,7 +32,9 @@ export const protect = async (req, res, next) => {
 export const authorize = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
-      throw new AppError(`User role ${req.user.role} is not authorized to access this route`, 403);
+      return res.status(403).json({
+        success : false
+      })
     }
     next();
   };

@@ -7,6 +7,7 @@ export const demoCredentials = {
     department: 'Administration',
     semester: 0,
     section: 'N/A',
+    token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NjQxN2NkYzhkZWY0NmZlNzFhOTQ4OCIsImlhdCI6MTczNDYxOTM2NCwiZXhwIj"
   },
   students: [
     {

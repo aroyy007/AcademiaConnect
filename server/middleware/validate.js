@@ -1,6 +1,5 @@
 // middleware/validate.js
 import { validationResult } from 'express-validator';
-import { AppError } from './error.js';
 
 export const validate = (validations) => {
   return async (req, res, next) => {
@@ -14,6 +13,8 @@ export const validate = (validations) => {
     const extractedErrors = [];
     errors.array().map(err => extractedErrors.push(err.msg));
 
-    throw new AppError(extractedErrors.join('. '), 400);
+    return res.status(400).json({
+      success : false
+    })
   };
 };

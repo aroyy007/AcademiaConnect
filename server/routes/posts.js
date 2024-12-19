@@ -44,12 +44,12 @@ const commentValidation = [
 ];
 
 // Routes
-router.post('/', validate(createPostValidation), postsController.create);
-router.get('/', postsController.getAll);
-router.get('/:id', postsController.getById);
-router.put('/:id', validate(createPostValidation), postsController.update);
-router.delete('/:id', postsController.delete);
-router.post('/:id/like', postsController.toggleLike);
-router.post('/:id/comments', validate(commentValidation), postsController.addComment);
+router.post('/', postsController.create);
+// router.get('/', postsController.getAll);
+// router.get('/:id', postsController.getById);
+// router.put('/:id', validate(createPostValidation), postsController.update);
+// router.delete('/:id', postsController.delete);
+// router.post('/:id/like', postsController.toggleLike);
+// router.post('/:id/comments', validate(commentValidation), postsController.addComment);
 
 export default router;  // Keep ES Module export

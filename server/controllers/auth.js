@@ -1,7 +1,5 @@
 // controllers/auth.js
 import { User } from '../models/User.js';
-import { AppError } from '../middleware/error.js';
-// import { logger } from '../config/logger.js';
 
 export const authController = {
   async register(req, res, next) {
@@ -28,9 +26,6 @@ export const authController = {
         data: _
       });
     } catch (error) {
-      // logger.error('Registration error:', error);
-      // next(error);
-
       return res.status(500).json({
         success: false,
         message: "Internal Server Error"
@@ -67,14 +62,16 @@ export const authController = {
 
       const token = user.getSignedJwtToken();
 
-      return res.json({
+      return res.status(200).json({
         success: true,
         token,
-        data: {...user?._doc, password : null}
+        data: { ...user?._doc, password: null }
       });
     } catch (error) {
-      logger.error('Login error:', error);
-      next(error);
+      return res.status(400).json({
+        success: false,
+        message: "Login error"
+      })
     }
   }
 };

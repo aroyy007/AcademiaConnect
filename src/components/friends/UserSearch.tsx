@@ -61,7 +61,7 @@ export function UserSearch() {
             <div className="py-2">
               {searchResults.map((user) => (
                 <UserSearchResult
-                  key={user.id}
+                  key={user._id}
                   user={user}
                   onSendRequest={handleSendRequest}
                 />
@@ -85,9 +85,9 @@ interface UserSearchResultProps {
 
 function UserSearchResult({ user, onSendRequest }: UserSearchResultProps) {
   return (
-    <div className="px-4 py-2 hover:bg-gray-50 flex items-center justify-between">
+    <div className="px-4 py-2 hover:bg-gray-50 flex flex-col items-start justify-between gap-y-2">
       <div className="flex items-center space-x-3">
-        <div className="w-10 h-10 bg-gray-200 rounded-full overflow-hidden">
+        {/* <div className="w-10 h-10 bg-gray-200 rounded-full overflow-hidden">
           {user.profileImage ? (
             <img
               src={user.profileImage}
@@ -99,7 +99,7 @@ function UserSearchResult({ user, onSendRequest }: UserSearchResultProps) {
               {user.name.charAt(0).toUpperCase()}
             </div>
           )}
-        </div>
+        </div> */}
         <div>
           <div className="font-medium text-gray-900">{user.name}</div>
           <div className="text-sm text-gray-500">{user.department}</div>
@@ -142,7 +142,7 @@ function FriendshipButton({ user, onSendRequest }: FriendshipButtonProps) {
 
   return (
     <button
-      onClick={() => onSendRequest(user.id)}
+      onClick={() => onSendRequest(user._id)}
       className={cn(
         'flex items-center space-x-1 px-3 py-1 rounded-full',
         'bg-blue-100 text-blue-700 hover:bg-blue-200 text-sm transition-colors'
