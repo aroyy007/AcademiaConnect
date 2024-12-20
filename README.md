@@ -24,26 +24,9 @@ AcademiaConnect is a university social media platform designed specifically for 
 - **Express.js**: A Node.js web application framework for handling server-side logic.
 - **MongoDB**: A NoSQL database for efficient data storage and retrieval.
 
-## Project Structure
+## 📂 Project Structure
 
 The project is organized into the following main directories:
-
-### Server:
-- **Config**: Configuration files for environment variables and database connections.
-- **Controllers**: Contains logic for handling requests and responses.
-- **Middleware**: Custom middleware for tasks like authentication and validation.
-- **Models**: Database schemas for MongoDB collections.
-- **Routes**: API endpoints for interacting with the frontend.
-
-### Src:
-- **Components**: Reusable React components.
-- **Lib**: Utility functions and libraries.
-- **Pages**: Main application pages (e.g., Home, Notifications, Routine).
-- **Store**: State management files.
-- **Styles**: CSS and styling configurations.
-- **Types**: TypeScript type definitions.
-
-## 📂 Project Structure
 
 ```
 AcademiaConnect/
@@ -62,6 +45,22 @@ AcademiaConnect/
 │   └── App.tsx          # Root component
 └── README.md
 ```
+
+### Server:
+- **Config**: Configuration files for environment variables and database connections.
+- **Controllers**: Contains logic for handling requests and responses.
+- **Middleware**: Custom middleware for tasks like authentication and validation.
+- **Models**: Database schemas for MongoDB collections.
+- **Routes**: API endpoints for interacting with the frontend.
+
+### Src:
+- **Components**: Reusable React components.
+- **Lib**: Utility functions and libraries.
+- **Pages**: Main application pages (e.g., Home, Notifications, Routine).
+- **Store**: State management files.
+- **Styles**: CSS and styling configurations.
+- **Types**: TypeScript type definitions.
+
 
 ## 🔒 Security
 
