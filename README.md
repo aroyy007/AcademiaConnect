@@ -113,10 +113,9 @@ Start both the backend and frontend servers:
 ```bash
 # Start backend
 cd server
-npm start
+nodemon server.js
 
 # Start frontend
-cd ../src
 npm run dev
 ```
 
