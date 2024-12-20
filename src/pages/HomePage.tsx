@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useAuthStore } from '../store/auth';
 import { usePostsStore } from '../store/posts';
 import { Navigate } from 'react-router-dom';
 import { CreatePost } from '../components/posts/CreatePost';
 import { PostCard } from '../components/posts/PostCard';
 import { toast } from 'react-hot-toast';
+import axios from 'axios';
 
 export function HomePage() {
-  const { isAuthenticated, user } = useAuthStore();
-  const { posts, likePost, addComment } = usePostsStore();
+  const { isAuthenticated, user, token } = useAuthStore();
+  const { likePost, addComment, posts, setPosts } = usePostsStore();
+  // const [posts, setPosts] = useState([]);
+  const [fetched, setFetched] = useState(false)
+  // if (user?._id && token ) {
+  //   const my_posts = getPosts(token, user?._id);
+  // }
 
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
@@ -16,7 +22,7 @@ export function HomePage() {
 
   const handleLike = (postId: string) => {
     if (user) {
-      likePost(postId, user.id);
+      likePost(postId, user._id);
     }
   };
 
@@ -24,7 +30,7 @@ export function HomePage() {
     if (user) {
       const comment = {
         id: crypto.randomUUID(),
-        userId: user.id,
+        userId: user._id,
         content,
         createdAt: new Date(),
       };
@@ -36,6 +42,30 @@ export function HomePage() {
   const handleShare = (postId: string) => {
     toast.success('Post shared successfully!');
   };
+
+  const fetchPosts = async () => {
+    try {
+      if (!fetched) {
+        const res = await axios.get(`http://localhost:9000/api/posts?user_id=${user?._id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        const data = res?.data;
+
+        if (data?.success) {
+          setPosts(data?.posts)
+          setFetched(true)
+        }
+      }
+
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const getPosts = fetchPosts()
+
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">

@@ -45,10 +45,10 @@ const commentValidation = [
 
 // Routes
 router.post('/', postsController.create);
-// router.get('/', postsController.getAll);
+router.get('/', postsController.getAll);
 // router.get('/:id', postsController.getById);
 // router.put('/:id', validate(createPostValidation), postsController.update);
-// router.delete('/:id', postsController.delete);
+router.post('/delete-post', postsController.delete);
 // router.post('/:id/like', postsController.toggleLike);
 // router.post('/:id/comments', validate(commentValidation), postsController.addComment);
 

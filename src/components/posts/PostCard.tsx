@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PostHeader } from './PostHeader';
 import { PostContent } from './PostContent';
 import { PostMetrics } from './PostMetrics';
@@ -31,13 +31,18 @@ export function PostCard({ post, onLike, onComment, onShare }: PostCardProps) {
     setShowShareModal(true);
   };
 
+  useEffect(() => {
+    console.log("post : ", post)
+  }, [post])
+
   return (
     <article className="bg-white rounded-lg shadow-sm overflow-hidden">
       <PostHeader
         user={post.userId}
         // createdAt={post?.createdAt}
         timestamp={post?.createdAt}
-      onMenuOpen={() => { }}
+        post={post}
+        onMenuOpen={() => { }}
       />
       <PostContent content={post.content} />
       <PostMetrics

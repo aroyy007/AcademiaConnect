@@ -1,10 +1,12 @@
 import { create } from 'zustand';
 import type { Post } from '../types';
+import axios from 'axios';
 
 interface PostsState {
   posts: Post[];
   deletedPosts: Post[];
   addPost: (post: Post) => void;
+  setPosts: (new_posts: Post[]) => void;
   updatePost: (postId: string, updates: Partial<Post>) => void;
   deletePost: (postId: string) => void;
   restorePost: (postId: string) => void;
@@ -39,6 +41,11 @@ const initialPosts: Post[] = [
 
 export const usePostsStore = create<PostsState>((set) => ({
   posts: initialPosts,
+  setPosts: (new_posts) => {
+    set({
+      posts : [...new_posts]
+    })
+  },
   deletedPosts: [],
   addPost: (post) => {
     console.log("post : ", post)
@@ -56,8 +63,8 @@ export const usePostsStore = create<PostsState>((set) => ({
         ...state.posts
       ]
     }))
-  },
 
+  },
   updatePost: (postId, updates) =>
     set((state) => ({
       posts: state.posts.map((post) =>

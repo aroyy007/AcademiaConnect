@@ -2,14 +2,15 @@ import React from 'react';
 import { MoreHorizontal, BadgeCheck, User } from 'lucide-react';
 import { format } from 'timeago.js';
 import type { User as UserType } from '../../types/post';
-
+import PostMenuModal from "./PostMenuModal"
 interface PostHeaderProps {
   user: UserType;
   timestamp: Date;
   onMenuOpen: () => void;
+  post : any
 }
 
-export function PostHeader({ user, timestamp, onMenuOpen }: PostHeaderProps) {
+export function PostHeader({ user, timestamp, onMenuOpen,post }: PostHeaderProps) {
   return (
     <div className="flex items-center justify-between p-4">
       <div className="flex items-center space-x-3">
@@ -36,13 +37,14 @@ export function PostHeader({ user, timestamp, onMenuOpen }: PostHeaderProps) {
           <p className="text-sm text-gray-500">{format(timestamp)}</p>
         </div>
       </div>
-      <button
+      {/* <button
         onClick={onMenuOpen}
         className="p-2 hover:bg-gray-100 rounded-full transition-colors"
         aria-label="Post options"
       >
         <MoreHorizontal className="h-5 w-5 text-gray-500" />
-      </button>
+      </button> */}
+      <PostMenuModal post_id={post?._id}  />
     </div>
   );
 }
